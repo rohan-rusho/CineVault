@@ -121,6 +121,7 @@ export default function VideoPlayer({
         src={processed.directUrl}
         preload="metadata"
         playsInline
+        autoPlay
       >
         {subtitles.map((sub) => (
           <track

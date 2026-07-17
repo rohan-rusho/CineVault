@@ -67,7 +67,7 @@ export function extractGoogleDriveId(url) {
 export function getGoogleDriveEmbedUrl(fileIdOrUrl) {
   const fileId = extractGoogleDriveId(fileIdOrUrl) || fileIdOrUrl;
   if (!fileId) return null;
-  return `https://drive.google.com/file/d/${fileId}/preview`;
+  return `https://drive.google.com/file/d/${fileId}/preview?autoplay=1`;
 }
 
 /**
