@@ -108,8 +108,15 @@ export const IDB_CONFIG = {
 // Navigation links
 export const NAV_LINKS = [
   { label: 'Home', path: '/' },
+  { label: 'TV Shows', path: '/tv-shows' },
   { label: 'Movies', path: '/movies' },
-  { label: 'Collections', path: '/collections' },
+  { label: 'Games', path: '/games' },
+  { label: 'LiveTV', path: '/live-tv' },
+  { label: 'Sports', path: '/sports' },
+  { label: 'Torrents', path: '/torrent' },
+  { label: 'Anime', path: 'https://www.enma.lol', external: true },
+  { label: 'My List', path: '/my-list' },
+  { label: 'Browse by Languages', path: '/browse-by-languages' },
 ];
 
 // Placeholder images

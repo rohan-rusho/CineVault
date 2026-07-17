@@ -64,6 +64,13 @@
   display: flex;
   align-items: center;
   gap: var(--space-1);
+  overflow-x: auto;
+  max-width: 70%;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.navbar__nav::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome/Safari */
 }
 
 .navbar__link {

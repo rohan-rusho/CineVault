@@ -34,15 +34,27 @@ export default function Navbar({ onSearchOpen }) {
 
         {/* Desktop Nav */}
         <nav className="navbar__nav" aria-label="Main navigation">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`navbar__link ${location.pathname === link.path ? 'navbar__link--active' : ''}`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => 
+            link.external ? (
+              <a
+                key={link.path}
+                href={link.path}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="navbar__link"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`navbar__link ${location.pathname === link.path ? 'navbar__link--active' : ''}`}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </nav>
 
         {/* Right Actions */}
@@ -69,15 +81,27 @@ export default function Navbar({ onSearchOpen }) {
       {/* Mobile Menu */}
       <div className={`navbar__mobile-menu ${mobileOpen ? 'navbar__mobile-menu--open' : ''}`}>
         <nav className="navbar__mobile-nav">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`navbar__mobile-link ${location.pathname === link.path ? 'navbar__mobile-link--active' : ''}`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => 
+            link.external ? (
+              <a
+                key={link.path}
+                href={link.path}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="navbar__mobile-link"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`navbar__mobile-link ${location.pathname === link.path ? 'navbar__mobile-link--active' : ''}`}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </nav>
       </div>
     </header>
