@@ -38,7 +38,29 @@
       "subtitles": [],
       "id": "doctor-strange",
       "dateAdded": "2026-07-17T17:42:36.008Z"
+    },
+    {
+      "tmdbId": 10195,
+      "title": "Thor",
+      "videoSource": "https://drive.google.com/file/d/1kl3-BXyucd-6zY5ypW3ptg74kD6CUFIt/view?usp=drive_link",
+      "downloadSource": "https://drive.google.com/file/d/1kl3-BXyucd-6zY5ypW3ptg74kD6CUFIt/view?usp=drive_link",
+      "featured": true,
+      "subtitles": [],
+      "id": "thor",
+      "dateAdded": "2026-07-17T18:00:54.043Z",
+      "customOrder": 1,
+      "lastModified": "2026-07-17T18:01:05.009Z"
+    },
+    {
+      "tmdbId": 284053,
+      "title": "Thor: Ragnarok",
+      "videoSource": "https://drive.google.com/file/d/1EjarArmjvCyW28ZJPyRY-iRFVv2Qdd4x/view?usp=drive_link",
+      "featured": true,
+      "subtitles": [],
+      "id": "thor-ragnarok",
+      "dateAdded": "2026-07-17T18:02:03.593Z",
+      "lastModified": "2026-07-17T18:02:06.791Z"
     }
   ],
-  "lastUpdated": "2026-07-17T17:42:36.008Z"
+  "lastUpdated": "2026-07-17T18:02:06.791Z"
 }
