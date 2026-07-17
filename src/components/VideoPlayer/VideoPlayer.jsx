@@ -83,20 +83,22 @@ export default function VideoPlayer({
   if (isIframe && processed.embedUrl) {
     return (
       <div className="player" ref={player.containerRef}>
-        {/* Back Button */}
+        {/* Back Button with Title */}
         {onBack && (
           <button className="player__back-btn" onClick={onBack}>
             <ChevronLeft size={24} />
-            <span>{title || 'Back'}</span>
+            <span>{title}</span>
           </button>
         )}
-        <iframe
-          src={processed.embedUrl}
-          className="player__iframe"
-          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-          allowFullScreen
-          title={title || 'Movie Player'}
-        />
+        <div className="player__iframe-wrapper">
+          <iframe
+            src={processed.embedUrl}
+            className="player__iframe"
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            allowFullScreen
+            title={title || 'Movie Player'}
+          />
+        </div>
       </div>
     );
   }
