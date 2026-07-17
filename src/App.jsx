@@ -48,9 +48,7 @@ function AppContent() {
               <Route path="/collections" element={<CollectionsPage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/play/:id" element={<PlayerPage />} />
-              {import.meta.env.DEV && (
-                <Route path="/admin/*" element={<AdminApp />} />
-              )}
+              <Route path="/admin/*" element={<AdminApp />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>
