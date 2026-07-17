@@ -20,7 +20,17 @@ export default function HeroSection({ featuredMovies }) {
   const [isMuted, setIsMuted] = useState(true);
   const [isPlayingVideo, setIsPlayingVideo] = useState(true);
   const [showFullDesc, setShowFullDesc] = useState(false);
-  const iframeRef = useRef(null);
+  const playerRef = useRef(null);
+
+  // Load YouTube Player API script once on mount
+  useEffect(() => {
+    if (!window.YT) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
+  }, []);
 
   // Load TMDB data for featured movies
   useEffect(() => {
@@ -41,13 +51,13 @@ export default function HeroSection({ featuredMovies }) {
     return () => { cancelled = true; };
   }, [featuredMovies]);
 
-  // Auto-rotate slides (only if video is paused/not playing or not supported)
+  // Auto-rotate slides (only if video is paused/not playing)
   useEffect(() => {
     if (featuredMovies?.length <= 1 || !isPlayingVideo) return;
     
     const interval = setInterval(() => {
       handleNextSlide();
-    }, 12000); // 12 seconds per slide to allow trailer visibility
+    }, 12000); // 12 seconds per slide
     
     return () => clearInterval(interval);
   }, [featuredMovies?.length, isPlayingVideo]);
@@ -83,33 +93,6 @@ export default function HeroSection({ featuredMovies }) {
     }, 450);
   }, [activeIndex]);
 
-  // Video Control Helpers
-  const toggleMute = () => {
-    const nextMuted = !isMuted;
-    setIsMuted(nextMuted);
-    const iframe = iframeRef.current;
-    if (iframe?.contentWindow) {
-      const command = nextMuted ? 'mute' : 'unmute';
-      iframe.contentWindow.postMessage(
-        JSON.stringify({ event: 'command', func: command, args: '' }),
-        '*'
-      );
-    }
-  };
-
-  const togglePlayVideo = () => {
-    const nextPlaying = !isPlayingVideo;
-    setIsPlayingVideo(nextPlaying);
-    const iframe = iframeRef.current;
-    if (iframe?.contentWindow) {
-      const command = nextPlaying ? 'playVideo' : 'pauseVideo';
-      iframe.contentWindow.postMessage(
-        JSON.stringify({ event: 'command', func: command, args: '' }),
-        '*'
-      );
-    }
-  };
-
   if (!featuredMovies?.length) return null;
 
   const activeMovie = featuredMovies[activeIndex];
@@ -133,19 +116,106 @@ export default function HeroSection({ featuredMovies }) {
   const trailer = videos?.find(v => v.site === 'YouTube' && v.type === 'Trailer') || videos?.find(v => v.site === 'YouTube');
   const trailerKey = trailer?.key;
 
+  // Initialize/Update YouTube Player API
+  useEffect(() => {
+    if (!trailerKey) return;
+
+    let player = null;
+    const playerId = `hero-video-${activeMovie.id}`;
+
+    const createPlayer = () => {
+      // Ensure the container exists in DOM before rendering
+      const el = document.getElementById(playerId);
+      if (!el) return;
+
+      player = new window.YT.Player(playerId, {
+        videoId: trailerKey,
+        playerVars: {
+          autoplay: 1,
+          mute: isMuted ? 1 : 0,
+          loop: 1,
+          playlist: trailerKey,
+          controls: 0,
+          showinfo: 0,
+          rel: 0,
+          iv_load_policy: 3,
+          modestbranding: 1,
+          playsinline: 1,
+          enablejsapi: 1,
+        },
+        events: {
+          onReady: (event) => {
+            playerRef.current = event.target;
+            if (isMuted) {
+              event.target.mute();
+            } else {
+              event.target.unmute();
+            }
+            if (isPlayingVideo) {
+              event.target.playVideo();
+            } else {
+              event.target.pauseVideo();
+            }
+          },
+          onStateChange: (event) => {
+            if (event.data === window.YT.PlayerState.ENDED) {
+              event.target.playVideo();
+            }
+          }
+        }
+      });
+    };
+
+    if (window.YT && window.YT.Player) {
+      createPlayer();
+    } else {
+      window.onYouTubeIframeAPIReady = createPlayer;
+    }
+
+    return () => {
+      if (player) {
+        try {
+          player.destroy();
+        } catch (e) {}
+      }
+      playerRef.current = null;
+    };
+  }, [trailerKey, activeMovie.id]);
+
+  // Video Control Functions
+  const toggleMute = () => {
+    const nextMuted = !isMuted;
+    setIsMuted(nextMuted);
+    const player = playerRef.current;
+    if (player && typeof player.mute === 'function') {
+      if (nextMuted) {
+        player.mute();
+      } else {
+        player.unmute();
+      }
+    }
+  };
+
+  const togglePlayVideo = () => {
+    const nextPlaying = !isPlayingVideo;
+    setIsPlayingVideo(nextPlaying);
+    const player = playerRef.current;
+    if (player && typeof player.playVideo === 'function') {
+      if (nextPlaying) {
+        player.playVideo();
+      } else {
+        player.pauseVideo();
+      }
+    }
+  };
+
   return (
     <section className="hero">
-      {/* Background (Video or Image) */}
+      {/* Background (Video API or Image) */}
       <div className={`hero__backdrop ${isTransitioning ? 'hero__backdrop--transitioning' : ''}`}>
         {isPlayingVideo && trailerKey ? (
           <div className="hero__video-wrapper">
-            <iframe
-              ref={iframeRef}
-              src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&playlist=${trailerKey}&loop=1&controls=0&showinfo=0&rel=0&enablejsapi=1&iv_load_policy=3&playsinline=1&modestbranding=1`}
-              title="Movie Trailer"
-              className="hero__video-iframe"
-              allow="autoplay; encrypted-media"
-            />
+            <div id={`hero-video-${activeMovie.id}`} className="hero__video-iframe" />
           </div>
         ) : (
           backdropPath && (
@@ -162,7 +232,7 @@ export default function HeroSection({ featuredMovies }) {
         <div className="hero__gradient-top" />
       </div>
 
-      {/* Side Carousel Navigation (Left & Right margins) */}
+      {/* Side Carousel Navigation */}
       {featuredMovies.length > 1 && (
         <>
           <button className="hero__arrow hero__arrow--left" onClick={handlePrevSlide} aria-label="Previous Slide">
@@ -174,7 +244,7 @@ export default function HeroSection({ featuredMovies }) {
         </>
       )}
 
-      {/* Center Play/Pause overlay - visible only on mouse hover */}
+      {/* Center Play/Pause overlay */}
       {trailerKey && (
         <div className="hero__play-pause-overlay">
           <button className="hero__play-pause-btn" onClick={togglePlayVideo} aria-label="Play/Pause Trailer">
