@@ -1,0 +1,195 @@
+/* ============================================
+   CineVault Design System — CSS Custom Properties
+   ============================================ */
+
+:root {
+  /* ---- Color Palette ---- */
+  /* Backgrounds */
+  --color-bg-primary: #0a0a0f;
+  --color-bg-secondary: #10101a;
+  --color-bg-tertiary: #161625;
+  --color-bg-elevated: #1c1c2e;
+  --color-bg-card: #14141f;
+  --color-bg-card-hover: #1a1a2e;
+  --color-bg-overlay: rgba(0, 0, 0, 0.75);
+  --color-bg-modal: rgba(0, 0, 0, 0.85);
+  --color-bg-glass: rgba(16, 16, 26, 0.7);
+  --color-bg-glass-light: rgba(255, 255, 255, 0.05);
+  --color-bg-input: rgba(255, 255, 255, 0.06);
+
+  /* Text */
+  --color-text-primary: #f0f0f5;
+  --color-text-secondary: #a0a0b8;
+  --color-text-tertiary: #6b6b85;
+  --color-text-muted: #4a4a62;
+  --color-text-inverse: #0a0a0f;
+
+  /* Accent — Deep Violet/Blue */
+  --color-accent-primary: #7c5cfc;
+  --color-accent-primary-hover: #9078ff;
+  --color-accent-primary-glow: rgba(124, 92, 252, 0.25);
+  --color-accent-secondary: #4ecdc4;
+  --color-accent-secondary-hover: #6eddd6;
+  
+  /* Action Colors */
+  --color-play: #e50914;
+  --color-play-hover: #ff1a27;
+  --color-play-glow: rgba(229, 9, 20, 0.3);
+  --color-info: #3b82f6;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  /* Gradients */
+  --gradient-hero-bottom: linear-gradient(to top, var(--color-bg-primary) 0%, rgba(10, 10, 15, 0.9) 20%, rgba(10, 10, 15, 0.6) 40%, transparent 100%);
+  --gradient-hero-left: linear-gradient(to right, var(--color-bg-primary) 0%, rgba(10, 10, 15, 0.7) 30%, transparent 60%);
+  --gradient-hero-top: linear-gradient(to bottom, rgba(10, 10, 15, 0.6) 0%, transparent 100%);
+  --gradient-card-overlay: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+  --gradient-accent: linear-gradient(135deg, #7c5cfc 0%, #4ecdc4 100%);
+  --gradient-accent-subtle: linear-gradient(135deg, rgba(124, 92, 252, 0.15) 0%, rgba(78, 205, 196, 0.1) 100%);
+  --gradient-surface: linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-bg-primary) 100%);
+  --gradient-play-btn: linear-gradient(135deg, #e50914 0%, #c20610 100%);
+
+  /* Borders */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+  --color-border-focus: var(--color-accent-primary);
+  --color-border-subtle: rgba(255, 255, 255, 0.04);
+
+  /* ---- Typography ---- */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* Font Sizes — Fluid */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.8125rem;    /* 13px */
+  --text-base: 0.875rem;   /* 14px */
+  --text-md: 1rem;         /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 1.875rem;    /* 30px */
+  --text-4xl: 2.25rem;     /* 36px */
+  --text-5xl: 3rem;        /* 48px */
+  --text-6xl: 3.75rem;     /* 60px */
+  --text-hero: clamp(2rem, 5vw, 4rem);
+
+  /* Font Weights */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  /* Letter Spacing */
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+
+  /* ---- Spacing ---- */
+  --space-1: 0.25rem;      /* 4px */
+  --space-2: 0.5rem;       /* 8px */
+  --space-3: 0.75rem;      /* 12px */
+  --space-4: 1rem;         /* 16px */
+  --space-5: 1.25rem;      /* 20px */
+  --space-6: 1.5rem;       /* 24px */
+  --space-8: 2rem;         /* 32px */
+  --space-10: 2.5rem;      /* 40px */
+  --space-12: 3rem;        /* 48px */
+  --space-16: 4rem;        /* 64px */
+  --space-20: 5rem;        /* 80px */
+  --space-24: 6rem;        /* 96px */
+
+  /* Container */
+  --container-padding: var(--space-6);
+  --container-max-width: 1400px;
+
+  /* ---- Border Radius ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ---- Shadows ---- */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px var(--color-accent-primary-glow);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 8px 40px rgba(0, 0, 0, 0.6);
+  --shadow-play: 0 4px 20px var(--color-play-glow);
+
+  /* ---- Transitions ---- */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+  --transition-slower: 600ms ease;
+  --transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-smooth: 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ---- Z-Index Scale ---- */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-navbar: 500;
+  --z-modal-backdrop: 800;
+  --z-modal: 900;
+  --z-player: 950;
+  --z-toast: 1000;
+  --z-tooltip: 1100;
+
+  /* ---- Layout ---- */
+  --navbar-height: 64px;
+  --sidebar-width: 260px;
+  --movie-card-aspect: 2 / 3;
+  --backdrop-aspect: 16 / 9;
+
+  /* ---- Movie Card Sizes ---- */
+  --card-width-sm: 130px;
+  --card-width-md: 165px;
+  --card-width-lg: 185px;
+  --card-width-xl: 210px;
+  --card-gap: var(--space-3);
+
+  /* ---- Backdrop Filter ---- */
+  --blur-sm: blur(8px);
+  --blur-md: blur(16px);
+  --blur-lg: blur(32px);
+  --blur-xl: blur(64px);
+}
+
+/* Responsive overrides */
+@media (max-width: 768px) {
+  :root {
+    --container-padding: var(--space-4);
+    --navbar-height: 56px;
+    --card-width-sm: 110px;
+    --card-width-md: 130px;
+    --card-width-lg: 150px;
+    --card-width-xl: 170px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --container-padding: var(--space-3);
+    --card-width-sm: 100px;
+    --card-width-md: 115px;
+    --card-width-lg: 130px;
+    --card-width-xl: 150px;
+  }
+}
