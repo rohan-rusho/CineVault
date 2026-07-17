@@ -84,58 +84,85 @@
   z-index: 1;
 }
 
-/* Center Media Controls Overlay */
-.hero__center-controls {
+/* Side Carousel Navigation (Absolute Left / Right) */
+.hero__arrow {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
   z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: var(--space-8);
-  opacity: 0;
-  transition: opacity var(--transition-base), transform var(--transition-base);
-}
-
-.hero:hover .hero__center-controls {
-  opacity: 0.9;
-}
-
-.hero__center-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 56px;
   height: 56px;
   border-radius: var(--radius-full);
-  background: rgba(10, 10, 15, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(10, 10, 15, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--color-text-primary);
   backdrop-filter: var(--blur-sm);
   -webkit-backdrop-filter: var(--blur-sm);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  opacity: 0;
+}
+
+.hero:hover .hero__arrow {
+  opacity: 0.8;
+}
+
+.hero__arrow:hover {
+  opacity: 1 !important;
+  transform: translateY(-50%) scale(1.1);
+  background: rgba(10, 10, 15, 0.85);
+  border-color: var(--color-accent-primary);
+}
+
+.hero__arrow--left {
+  left: var(--container-padding);
+}
+
+.hero__arrow--right {
+  right: var(--container-padding);
+}
+
+/* Center Play/Pause Overlay (Visible ONLY on Hover) */
+.hero__play-pause-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  opacity: 0;
+  transition: opacity var(--transition-base), transform var(--transition-base);
+  pointer-events: none;
+}
+
+.hero:hover .hero__play-pause-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hero__play-pause-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-full);
+  background: rgba(10, 10, 15, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-text-primary);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
   transition: all var(--transition-fast) var(--transition-spring);
   cursor: pointer;
 }
 
-.hero__center-btn:hover {
+.hero__play-pause-btn:hover {
   transform: scale(1.1);
-  background: rgba(10, 10, 15, 0.95);
-  border-color: var(--color-accent-primary);
-  color: var(--color-accent-primary);
-  box-shadow: var(--shadow-glow);
-}
-
-.hero__center-btn--play {
-  width: 72px;
-  height: 72px;
-  background: rgba(124, 92, 252, 0.2);
-  border-color: var(--color-accent-primary);
-}
-
-.hero__center-btn--play:hover {
   background: var(--color-accent-primary);
-  color: white;
+  border-color: var(--color-accent-primary);
+  box-shadow: var(--shadow-glow);
 }
 
 /* Content */
@@ -378,11 +405,15 @@
   }
 
   .hero__video-wrapper {
-    display: none; /* Hide background trailer on mobile viewports for performance/touch limitations */
+    display: none; /* Hide background trailer on mobile */
   }
 
-  .hero__center-controls {
-    display: none; /* Hide center controls on mobile */
+  .hero__arrow {
+    display: none; /* Hide side arrows on mobile */
+  }
+
+  .hero__play-pause-overlay {
+    display: none; /* Hide play overlay on mobile */
   }
 
   .hero__content {

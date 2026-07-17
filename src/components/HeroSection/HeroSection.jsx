@@ -162,18 +162,26 @@ export default function HeroSection({ featuredMovies }) {
         <div className="hero__gradient-top" />
       </div>
 
-      {/* Center Carousel Controls (from inspiration) */}
-      <div className="hero__center-controls">
-        <button className="hero__center-btn" onClick={handlePrevSlide} aria-label="Previous Slide">
-          <ChevronLeft size={36} />
-        </button>
-        <button className="hero__center-btn hero__center-btn--play" onClick={togglePlayVideo} aria-label="Play/Pause Trailer">
-          {isPlayingVideo ? <Pause size={36} fill="currentColor" /> : <Play size={36} fill="currentColor" />}
-        </button>
-        <button className="hero__center-btn" onClick={handleNextSlide} aria-label="Next Slide">
-          <ChevronRight size={36} />
-        </button>
-      </div>
+      {/* Side Carousel Navigation (Left & Right margins) */}
+      {featuredMovies.length > 1 && (
+        <>
+          <button className="hero__arrow hero__arrow--left" onClick={handlePrevSlide} aria-label="Previous Slide">
+            <ChevronLeft size={32} />
+          </button>
+          <button className="hero__arrow hero__arrow--right" onClick={handleNextSlide} aria-label="Next Slide">
+            <ChevronRight size={32} />
+          </button>
+        </>
+      )}
+
+      {/* Center Play/Pause overlay - visible only on mouse hover */}
+      {trailerKey && (
+        <div className="hero__play-pause-overlay">
+          <button className="hero__play-pause-btn" onClick={togglePlayVideo} aria-label="Play/Pause Trailer">
+            {isPlayingVideo ? <Pause size={32} fill="currentColor" /> : <Play size={32} fill="currentColor" />}
+          </button>
+        </div>
+      )}
 
       {/* Content */}
       <div className={`hero__content container-fluid ${isTransitioning ? 'hero__content--transitioning' : ''}`}>

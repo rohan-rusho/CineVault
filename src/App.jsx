@@ -1,9 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from '@/components/Navbar/Navbar';
-import SearchModal from '@/components/SearchModal/SearchModal';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
-import { useSearch } from '@/hooks/useSearch';
 import { Loader } from 'lucide-react';
 import '@/styles/index.css';
 
@@ -12,6 +10,7 @@ const HomePage = lazy(() => import('@/pages/HomePage'));
 const MoviesPage = lazy(() => import('@/pages/MoviesPage'));
 const MovieDetailPage = lazy(() => import('@/pages/MovieDetailPage'));
 const CollectionsPage = lazy(() => import('@/pages/CollectionsPage'));
+const SearchPage = lazy(() => import('@/pages/SearchPage'));
 const PlayerPage = lazy(() => import('@/pages/PlayerPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
@@ -27,7 +26,6 @@ function PageLoader() {
 }
 
 function AppContent() {
-  const search = useSearch();
   const location = useLocation();
 
   // Hide navbar on player page and admin
@@ -37,16 +35,7 @@ function AppContent() {
 
   return (
     <>
-      {showNavbar && <Navbar onSearchOpen={search.open} />}
-
-      <SearchModal
-        isOpen={search.isOpen}
-        query={search.query}
-        results={search.results}
-        loading={search.loading}
-        onSearch={search.search}
-        onClose={search.close}
-      />
+      {showNavbar && <Navbar />}
 
       <main>
         <ErrorBoundary>
@@ -56,6 +45,7 @@ function AppContent() {
               <Route path="/movies" element={<MoviesPage />} />
               <Route path="/movie/:id" element={<MovieDetailPage />} />
               <Route path="/collections" element={<CollectionsPage />} />
+              <Route path="/search" element={<SearchPage />} />
               <Route path="/play/:id" element={<PlayerPage />} />
               {import.meta.env.DEV && (
                 <Route path="/admin/*" element={<AdminApp />} />
