@@ -22,8 +22,10 @@ export default function VideoPlayer({
   const player = useVideoPlayer(movieId);
   const [showSettings, setShowSettings] = useState(false);
   const [settingsTab, setSettingsTab] = useState('speed');
-  const isIframe = requiresIframeEmbed(videoSource);
+  const [forceIframe, setForceIframe] = useState(false);
+  const isIframe = requiresIframeEmbed(videoSource) || forceIframe;
   const processed = processVideoSource(videoSource);
+  const iframeUrl = processed.embedUrl || videoSource;
 
   // Restore progress on mount
   useEffect(() => {
@@ -79,8 +81,8 @@ export default function VideoPlayer({
     );
   }
 
-  // Google Drive Iframe Player
-  if (isIframe && processed.embedUrl) {
+  // Google Drive / Fallback Iframe Player
+  if (isIframe && iframeUrl) {
     return (
       <div className="player" ref={player.containerRef}>
         {/* Back Button with Title */}
@@ -92,7 +94,7 @@ export default function VideoPlayer({
         )}
         <div className="player__iframe-wrapper">
           <iframe
-            src={processed.embedUrl}
+            src={iframeUrl}
             className="player__iframe"
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
             allowFullScreen
@@ -154,8 +156,26 @@ export default function VideoPlayer({
       {/* Error Overlay */}
       {player.error && (
         <div className="player__error-overlay">
-          <AlertCircle size={36} />
-          <p>{player.error}</p>
+          <AlertCircle size={36} className="player__error-icon" style={{ color: 'var(--color-danger)' }} />
+          <p style={{ margin: 'var(--space-2) 0' }}>{player.error}</p>
+          <div style={{ display: 'flex', gap: 'var(--space-3)', marginTop: 'var(--space-2)' }}>
+            <button
+              onClick={() => setForceIframe(true)}
+              style={{
+                background: 'var(--color-play)',
+                color: '#fff',
+                padding: '10px 20px',
+                borderRadius: 'var(--radius-full)',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                border: 'none',
+                boxShadow: 'var(--shadow-play)'
+              }}
+            >
+              Play in Iframe Mode (Bypass CORS)
+            </button>
+          </div>
         </div>
       )}
 
