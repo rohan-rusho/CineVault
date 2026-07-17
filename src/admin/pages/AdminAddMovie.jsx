@@ -271,11 +271,11 @@ export default function AdminAddMovie() {
             </h4>
 
             <div className="admin-form__group">
-              <label className="admin-form__label">Google Drive Video URL *</label>
+              <label className="admin-form__label">Google Drive or Direct Video URL (MP4, MKV, etc.) *</label>
               <input
                 type="url"
                 className="admin-form__input"
-                placeholder="https://drive.google.com/file/d/.../view"
+                placeholder="Google Drive link OR direct video URL (e.g. https://domain.com/movie.mp4)"
                 value={videoSource}
                 onChange={(e) => setVideoSource(e.target.value)}
               />

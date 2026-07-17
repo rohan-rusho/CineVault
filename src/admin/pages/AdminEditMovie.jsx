@@ -130,12 +130,12 @@ export default function AdminEditMovie() {
       {/* Edit Form */}
       <div className="admin-form">
         <div className="admin-form__group">
-          <label className="admin-form__label">Video Source URL</label>
+          <label className="admin-form__label">Video Source URL (Google Drive or direct MP4/MKV)</label>
           <input
             className="admin-form__input"
             value={movie.videoSource || ''}
             onChange={(e) => handleChange('videoSource', e.target.value)}
-            placeholder="https://drive.google.com/file/d/.../view"
+            placeholder="Google Drive link OR direct video URL (e.g. https://domain.com/movie.mp4)"
           />
         </div>
 
