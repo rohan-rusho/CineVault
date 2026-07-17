@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from '@/components/Navbar/Navbar';
+import Footer from '@/components/Footer/Footer';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 import { Loader } from 'lucide-react';
 import '@/styles/index.css';
@@ -28,7 +29,7 @@ function PageLoader() {
 function AppContent() {
   const location = useLocation();
 
-  // Hide navbar on player page and admin
+  // Hide navbar and footer on player page and admin
   const isPlayerPage = location.pathname.startsWith('/play/');
   const isAdminPage = location.pathname.startsWith('/admin');
   const showNavbar = !isPlayerPage && !isAdminPage;
@@ -55,6 +56,8 @@ function AppContent() {
           </Suspense>
         </ErrorBoundary>
       </main>
+
+      {showNavbar && <Footer />}
     </>
   );
 }
