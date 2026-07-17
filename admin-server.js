@@ -93,8 +93,13 @@ function readJSON(filename) {
 }
 
 function writeJSON(filename, data) {
-  const filepath = join(DATA_DIR, filename);
-  writeFileSync(filepath, JSON.stringify(data, null, 2), 'utf-8');
+  // Write to workspace data/ directory
+  const rootPath = join(__dirname, 'data', filename);
+  writeFileSync(rootPath, JSON.stringify(data, null, 2), 'utf-8');
+
+  // Write to public/data/ directory for immediate client-side hot serving
+  const publicPath = join(__dirname, 'public', 'data', filename);
+  writeFileSync(publicPath, JSON.stringify(data, null, 2), 'utf-8');
 }
 
 function generateId(title) {
