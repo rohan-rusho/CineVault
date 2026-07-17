@@ -27,10 +27,10 @@ export default function Navbar({ onSearchOpen }) {
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__inner">
         {/* Logo */}
-        <Link to="/" className="navbar__logo">
+        <a href="/" className="navbar__logo">
           <Film className="navbar__logo-icon" size={28} />
           <span className="navbar__logo-text">CineVault</span>
-        </Link>
+        </a>
 
         {/* Desktop Nav */}
         <nav className="navbar__nav" aria-label="Main navigation">
